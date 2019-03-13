@@ -1,0 +1,48 @@
+第三单元:布局的高级应用
+1.include标签:在Android可能会有某一部分布局会在多个页面进行使用,那么就可以把这一块布局单独抽成一布局,在需要使用的
+		地方进行使用;
+		注意:一般在创建include的独立布局的时候,高度一般都给自适应的高度;
+		通过<include></include>标签来引入共用的布局,,,,通过layout这个属性来引入指定的布局文件
+
+2.常用控件的监听------所有的控件都是直接或者间接的继承自View类
+	View类下的控件监听(Button,ImageView,TextView)
+		(1):添加监听的方式:
+			1.通过控件本身的onclick属性来添加监听-----TextView比较特殊:必须添加另外一个属性android:clickable:"true"
+			2.通过代码的方式----匿名内部类的方式
+				通过控件对象.setOnClickListener()的方式进行添加监听
+			3.通过实现一个OnClickListener的接口
+			
+	CheckBox的监听:
+		//获取CheckBox默认选中状态的方法
+		checkbox.isChecked();
+		//通过代码的方式设置checkbox的选中状态
+		checkbox.setChecked(boolean);
+		通过setOnCheckedChangeListener();方法来设置监听(状态改变的监听)
+	
+	RadioButton的监听
+		 //获取选中的Radiobutton的id
+		 radio_group.getCheckedRadioButtonId();
+		 通过setOnCheckedChangeListener()来设置监听(状态改变的监听)
+
+3.吐司----
+	context:上下文对象---写法:当前类名.this
+	text:吐司的内容 -----String
+	duration:吐司的持续时间-----int(常量)
+
+	Toast.makeText(MainActivity.this, "点到我了", Toast.LENGTH_SHORT).show();
+4.Android中的控制台打印
+	提供了一个日志打印的类
+	Log.i();
+	Log.e();
+	Log.a();
+	..
+5.背景选择器:(Button,RadioButton):在对控件状态切换的过程中,可以通过切换背景的样式/颜色来区分是否对控件操作成功
+	
+	切换背景:
+		res目录---->drawable---->selector---->选择状态---->设置不同状态的背景
+		在指定控件进行引用 ---- 注意:通过@drawable
+
+
+	切换字体颜色
+		res目录---->color List---->selector---->选择状态---->设置不同的颜色
+		在指定控件进行引用 ---- 注意:通过@color

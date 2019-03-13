@@ -1,0 +1,114 @@
+第十六单元:帧动画和补间动画
+1.帧动画(FragmeAnimation):
+	定义:在时间轴的每一帧上,逐帧绘制不同的图片,使其快速的翻动起来,形成的动画叫做帧动画;
+	作用:渲染页面;
+	特点:使用多张图片
+	应用场景:加载数据时候的等待状态,,,,,音乐均衡器
+	实现步骤:准备图片资源---->创建动画---->设置动画---->播放动画
+	实现方式:
+		(1):XML形式(静态实现)
+			//在res---->drawable---->创建动画的xml文件
+			//创建动画
+			AnimationDrawable drawable = (AnimationDrawable) getDrawable(R.drawable.my_animation);
+			//设置动画
+			img_view.setBackground(drawable);
+			//开启动画
+			drawable.start();
+		(2):代码形式(动态实现)
+			//创建动画
+			AnimationDrawable  drawable = new AnimationDrawable();
+			//添加图片
+			drawable.addFrame(getResources().getDrawable(R.drawable.a), 100);
+			drawable.addFrame(getResources().getDrawable(R.drawable.b), 100);
+			drawable.addFrame(getResources().getDrawable(R.drawable.c), 100);
+			//设置动画
+			img_view.setBackgroundDrawable(drawable);//过时的方法
+			img_view.setBackground(drawable);//新API中的方法,使用需要添加注解
+			//开启动画
+			drawable.start();
+2.补间动画(TweenAnimation)
+	定义:只需要指定动画的开始帧和结束帧,中间部分由系统自动补全,这种动画叫做补间动画;
+	作用:渲染页面
+	特点:需要一张图片
+	应用场景:音乐播放,应用首页
+	实现步骤:创建动画---->对动画进行设置---->开启动画
+	实现方式:
+		(1):代码方式
+		(2):XML方式:官方文档推荐使用XML方式
+	种类:
+	(1):渐变动画(透明度动画)
+		代码方式:
+			创建动画
+			/*
+			* 透明度取值范围: 0.0-1.0
+			* fromAlpha:起始透明度  
+			* toAlpha:结束透明度 
+			*/
+			AlphaAnimation alph = new AlphaAnimation(0.0f, 1.0f);
+			//设置动画的持续时间 ★★★★★★
+			alph.setDuration(5000);
+			//开启动画
+			img_view.startAnimation(alph);
+
+	(2):旋转动画
+		/*
+		 * fromDegrees:起始的角度
+		 * toDegrees:结束的角度
+		 * pivotXType:X轴旋转模式
+		 * pivotXValue:X轴中心坐标
+		 * pivotYType:Y轴旋转模式
+		 * pivotYValue:Y轴中心点坐标
+		 */
+		RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		rotate.setDuration(3000);
+		img_view.startAnimation(rotate);
+	(3):缩放动画
+		/*
+		 * fromX:X轴的起始缩放倍数
+		 * toX:X轴结束缩放倍数
+		 * fromY:Y轴的起始缩放倍数
+		 * toY:Y轴结束缩放倍数
+		 * pivotXType:X轴的缩放模式
+		 * pivotXValue:X轴的缩放中心点坐标
+		 * pivotYType:Y轴的缩放模式
+		 * pivotYValue:Y轴的缩放中心点坐标
+		 */
+		ScaleAnimation scale = new ScaleAnimation(0.0f, 2.0f, 0.0f, 2.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		scale.setDuration(3000);
+		img_view.startAnimation(scale);
+		
+	(4):位移动画
+		//创建位移动画对象
+		/*
+		 * fromXType:X轴起始的位移模式
+		 * fromXValue:X起始的坐标
+		 * toXType, X轴结束的位移模式
+		 * toXValue:X结束的坐标
+		 * fromYType, Y轴起始的位移模式
+		 * fromYValu:Y起始的坐标 
+		 * toYType, Y轴结束的位移模式
+		 * toYValue:Y结束的坐标
+		 */
+		TranslateAnimation translate = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 1.0f, Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 1.0f);
+		translate.setDuration(3000);
+		img_view.startAnimation(translate);
+		
+	(5):动画集
+		// 参数:是否公用一个插值器
+		AnimationSet set = new AnimationSet(true);
+		AlphaAnimation alph = new AlphaAnimation(0.0f, 1.0f);
+		RotateAnimation rotate = new RotateAnimation(0, 360,
+				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+				0.5f);
+		set.addAnimation(alph);
+		set.addAnimation(rotate);
+		set.setDuration(3000);
+		img_view.startAnimation(set);
+
+	动画的可选设置:
+		alph.setFillAfter(false);//是否保持在动画播放以后的状态
+		alph.setFillBefore(true);//是否保持在动画播放之前的状态
+		alph.setRepeatCount(Animation.INFINITE);//设置动画的重复次数----Animation.INFINITE:代表无限次数
+		alph.setRepeatMode(Animation.REVERSE);//设置动画的重复模式-----REVERSE:代表往复的动作
+		alph.setStartOffset(2000);//设置动画开始前的等待时间
+		alph.setInterpolator(i);//设置动画的插值器

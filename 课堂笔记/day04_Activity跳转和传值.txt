@@ -1,0 +1,53 @@
+第四单元:Activity跳转并传值
+1.Activity是啥?
+	1.Actiivty是Android的四大组件
+		(1):Activity--------:是唯一有界面的四大组件(代表了界面,并且一般存在多个)
+			作用:提供应用程序与用户之间的直接交互动作
+			如何来确定一个文件是Activity?-----看继承关系
+			如何自己创建一个Activity文件
+				(1):创建一个类
+				(2):有继承关系---继承自Activity
+				(3):重写onCreate方法
+				(4):设置当前页面的布局文件
+				(5):注册Activity   ★★★★★
+		(2):BroadCastReceiver:广播接收者
+		(3):Service:后台服务
+		(4):ContentProvider:内容提供者
+
+2.Activity之间的跳转
+	跳转时候需要通过意图对象
+	Intent intent = new Intent(上下文,目标页面的字节码文件);//第一个参数:当前类名.this---第二个参数:目标Activity类名.class
+	开启Activity的方式一:
+		startActivity(Intent);
+	关闭(结束)Activity的方式:
+		finish();
+
+3.跳转的同时进行传值:
+	1.传值可以传递的数据类型:基本数据类型,引用数据类型(对象),集合
+		(1):传值的方式一:通过Intent对象直接调用方法
+			//存值
+			intent.putExtra(key, value);
+			//取值
+			Intent intent = getIntent();
+			intent.getStringExtra(key);
+			intent.getIntExtra(key,deValue);//有默认值:默认值的作用:如果根据指定的键没有取到对应的值,那么就用默认值
+			//---------------------------------
+			如何传递一个对象?
+			★★★★★注意:如果想要传递一个对象,那么这个对象对应的实体类必须实现序列化接口;
+				序列化接口:
+					(1)Serializable
+					(2)Parcelable
+			取出对象的方式:
+				intent.getSerializableExtra(key);-----取出数据以后,,需要进行强转
+		(2):传值的方式二:通过把需要传的值进行统一打包,然后在存放在意图对象中,进行传值(加强数据的安全性)
+			通过Bundle的对象,把数据存放起来,,然后再通过意图对象把Bundle传过去
+			Bundle bundle = new Bundle();
+			bundle.put(key,value);
+	实际创建Activity:
+		new --- > other ----> Android Activity 
+			
+			
+			
+
+			
+		

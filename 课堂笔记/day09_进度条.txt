@@ -1,0 +1,67 @@
+第九单元:ProgressBar/SeekBar/RatingBar/ProgressDialog
+1.ProgressBar:进度条
+	(1):水平有进度值的:
+		使用场景:加载的时候,下载的时候
+		(1):如何设置成水平的进度条?
+			通过--- style="@android:style/Widget.ProgressBar.Horizontal"
+				style="?android:attr/progressBarStyleHorizontal"
+		(2):如何设置进度?
+			android:max="100"-----设置进度条的最大值(如果不设置,默认是100)
+			android:progress="60"---设置进度条的当前进度值
+			android:secondaryProgress="80"----设置进度条的二级进度(缓存进度)
+		(3):模拟加载进度:
+			注意:Android中一般情况下,主线程用来做更新UI的操作,子线程用来做耗时操作(模拟加载进度,访问网络,请求数据)
+			通过创建子线程,在子线程中,去通过死循环来进行模拟加载进度
+			//设置当前进度值
+			progress_bar.setProgress();
+	(2):圆形进度条:默认展示的形状
+		使用场景:加载数据,缓存数据的时候
+2.SeekBar:可以拖动的进度条
+	(1):水平方向
+		应用场景:音乐播放器,视频播放器
+	(2):属性:
+		android:max="1000"-----设置进度条的最大进度值
+		android:progress="60"---设置进度条的当前进度值
+		android:secondaryProgress="80"----设置进度条的二级进度(缓存进度)
+	(3):如何使用?
+		一般使用都是结合着线程来使用
+	(4):SeekBar的监听?
+		seek_bar.setOnSeekBarChangeListener();
+			注意:监听中一共重写了3个方法
+				onStopTrackingTouch();//停止拖动
+				onStartTrackingTouch();//开始拖动
+				onProgressChanged();//进度改变
+					参数:
+						progress:拖动过程中的当前进度值(改变)
+						fromUser:此操作是否来自于用户
+3.RatingBar:星级评分进度条
+	(1):水平方向:区分大小
+		应用场景:评价
+	(2):属性:
+		android:numStars="6"----星星的总数量(默认5个)
+		android:stepSize="1"----步长(默认是0.5)
+		style="?android:attr/ratingBarStyleSmall"----设置样式(小星星)
+	(3):如何使用?
+		RatingBar的监听:
+			 rating_bar.setOnRatingBarChangeListener();
+				参数:
+					float rating:当期选中的星星的数量
+4.ProgressDialog:进度条的弹框(需要在代码中去创建)
+	//直接通过构造方法创建
+	ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+	//设置对话框内容
+	progressDialog.setTitle("删除");
+	progressDialog.setMessage("正在删除.....");
+	progressDialog.setIcon(R.drawable.ic_launcher);
+	//设置进度条的内容
+	progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);//设置进度条的样式
+	progressDialog.setMax(100);//进度条的最大值
+
+
+	显示的方式:
+		.show()
+	关闭的方式:
+		.dismiss();
+	
+					
+

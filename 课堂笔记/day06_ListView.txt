@@ -1,0 +1,43 @@
+第六单元:ListView适配器和展示数据
+1.ListView展示的数据:用来展示集合数据的(List,Map)
+	应用:qq聊天界面,新闻展示页面,淘宝商品列表....
+	ListView控件的特点:以列表的形式来展示数据
+	ListView的属性:
+		android:divider=""-----设置分割线
+			可以设置图片
+			可以设置16进制的颜色---注意:如果设置颜色为分割线,必须设置分割先的高度
+			android:dividerHeight="2dp"
+	
+2.如何展示数据?
+	****通过适配器(adapter)来进行展示集合数据
+	(1):ArrayAdapter:只能展示单一的文字数据--------List<String>()[功能有限,数据类型简单]
+		//2.创建适配器
+		/*
+		 * context:上下文对象 
+		 * resource:条目的布局资源
+		 * textViewResourceId:TextView的资源id
+		 * objects:展示的数据
+		 */
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, list);
+	(2):SimpleAdapter:可以展示复杂的数据---------List<Map<key,value>>()[功能比较完善,数据类型复杂]
+		/*
+		 * context:上下文对象 
+		 * data:展示的数据------List<Map<key,value>>
+		 * resource:条目的布局资源 
+		 * from(String数组):(数据)从哪来----所有键的数组
+		 * to(int数组):(数据)到哪去-----所有控件的数组
+		 */
+		String[] from = new String[]{"name","age","sex"};
+		int[] to = new int[]{R.id.text_name,R.id.text_age,R.id.text_sex};
+		SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, list, R.layout.item_layout, from, to);
+	(3):BaseAdapter(自定义适配器):-------List<泛型>[功能比较完善,数据类型全面,数据类型相对简单]
+		如何创建自定义的适配器?
+			(1):创建一个类
+			(2):继承BaseAdapter
+			(3):重写方法
+				getCount();-----返回条目的总数量
+				getItem();------返回当前条目的对象
+				getItemId();----返回当前条目对应的id(注意:id==position)
+				getView();------返回当前条目的视图对象
+			
+		

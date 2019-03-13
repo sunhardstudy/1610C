@@ -1,0 +1,13 @@
+第五单元:Activity回传值(另一种开启Activity的方式)
+1.开启Activity的方式二:
+	(1):startActivity(intent);
+	(2):startActivityForResult(intent,requestCode[请求码]);
+	回传数据的时候,使用的方法
+		注意:
+			(1):Intent intent = new Intent();//回传值需要的意图对象,没有参数
+			(2):setResult(resultCode[结果码],intent);
+			(3):回传值以后,必须关闭当前的页面-----finish();★★★★★
+	接收回传数据的时候
+		注意:
+			(1):重写onActivityResult()方法
+			(2):在里面进行判断----请求码和结果码相匹配才进行取值

@@ -1,0 +1,33 @@
+第十单元:通知(Notification)
+1.如何实现Android中的通知:
+	(1).从系统服务中,获取到通知的管理者
+	NotificationManager manager = (NotificationManager)MainActivity.this.getSystemService(NOTIFICATION_SERVICE);
+	(2).创建通知的构造器
+	new Builder(MainActivity.this);
+	(3).设置通知的具体内容
+		builder.setTicker("您有一条新的通知");//通知的提示信息
+		builder.setContentTitle("腾讯新闻");//设置通知内容的标题
+		builder.setContentText("陈姓歌手在石景山聚众吸毒,,,被抓捕.......");//设置通知的内容
+		builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));//设置通知的大图标
+		builder.setSmallIcon(R.drawable.ic_launcher);//设置通知的小图标
+		//设置点击通知内容,,,跳转到对应的详情页面
+		Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+		PendingIntent pIntent = PendingIntent.getActivity(MainActivity.this, 99, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		builder.setContentIntent(pIntent);
+		//设置自动取消
+		builder.setAutoCancel(true);
+	(4).生成当前的通知对象
+		Notification notification = builder.build();
+	(5).发送通知
+		//id:通知的标识(编号)
+
+		manager.notify(id, notification);
+2:Intent和PendingIntent的区别
+	可以把PendingIntent看作是对Intent的包装;
+	PendingIntent,意思为解决即将发生的跳转意图(延迟的跳转对象)
+	Intent:解决立即(马上)发生的跳转意图
+3:如何获取到PendingIntent的对象?
+	常用的方式有:3种
+	PendingIntent.getActivity();//在Activity中使用
+	PendingIntent.getBroadCast();//在广播中使用
+	PendingIntent.getService();//在服务中使用

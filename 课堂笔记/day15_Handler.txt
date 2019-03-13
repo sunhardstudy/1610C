@@ -1,0 +1,33 @@
+第十五单元:Handler/Timer
+1.Handler:线程间的通信
+	Android中有主线程,有子线程,
+		主线程:更新UI
+		子线程:耗时操作
+	(1):倒计时跳转:倒计时+跳转 ★★★★★★★★
+		(0):定义变量,记录倒计时的时间
+		(1):创建一个全局的Handler对象
+		(2):重写handleMessage的方法
+		(3):在下面通过sendEmptyMessageDelayed()发送消息
+		(4):在handleMessage方法中,判断消息编号,并执行倒计时
+		(5):在"跳过"按钮的监听中,必须移除消息
+			handler.removeCallbacksAndMessages(null);
+	(2):模拟进度
+		Handler里面的方法:
+		(1):send:发送消息的方法
+			常用:handler.sendEmptyMessage(10);//立刻发送一条空消息
+			handler.sendEmptyMessageAtTime(what, uptimeMillis);//在指定的时间发送一条空消息
+			★常用:handler.sendEmptyMessageDelayed();//延迟指定时间发送一条空消息
+			常用:handler.sendMessage(msg);// 立刻发送一条有内容的消息
+			handler.sendMessageAtFrontOfQueue(msg);//在消息队列前发送一条有内容的消息
+			handler.sendMessageAtTime(msg, uptimeMillis);//在指定的时间发送一条有内容消息
+			★常用:handler.sendMessageDelayed(msg, delayMillis);//延迟指定时间发送一条有内容的消息
+		(2):post:发布任务
+			handler.post(r);//立刻发布一此任务
+			handler.postAtFrontOfQueue(r);//在消息队列前发布一次任务
+			handler.postAtTime(r, uptimeMillis);//在指定的时间发布一次任务
+			handler.postDelayed(r, delayMillis)//延迟指定时间发布一次任务
+		注意:send和post方式没有本质区别,因为post源码同样也是调用send的方法
+
+
+	
+	

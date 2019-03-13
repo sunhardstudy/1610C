@@ -1,0 +1,25 @@
+第七单元:ListView优化 ★★★★★★
+为什么对ListView进行优化?
+	一次性加载过多的数据,容易导致程序崩溃---崩溃的原因:Out of memory on a 64-byte allocation.(内存溢出)
+1.ListView的优化方式:
+	(1):布局(视图)的优化:通过判断当前条目的视图对象是否为空
+	(2):控件的优化:通过ViewHolder容器对要使用的控件,进行预加载
+
+2.优化的原理
+	(1):进入程序,对conVertView进行判空,如果当前视图对象为空,进行创建对象,否则,复用convertView的对象
+	(2):通过ViewHolder容器,进行预加载,避免每次加载都会使用findViewById进行初始化控件
+
+3.ListView的监听
+	条目的点击监听
+		setOnItemClickListener()
+	条目的长按监听
+		setOnItemLongClickListener()
+	ListView的滚动监听
+4.GridView的使用----使用方式,跟ListView一模一样(除了展示数据的方式不一样)
+	一般会添加这个属性:
+	android:numColumns="2"-------展示的列数
+	可选属性:
+	android:horizontalSpacing="20dp"-----列间距
+	android:verticalSpacing="20dp" ------行间距
+	android:columnWidth="" --------列宽
+	

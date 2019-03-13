@@ -1,0 +1,88 @@
+第十二单元:广播接收者(BroadCastReceiver)
+	Android的四大组件:
+		Activity
+		BroadCastReceiver
+		Service(后台服务)
+		ContentProvider(内容提供者)
+		共性:都需要在AndroidManifest.xml中进行注册
+1.广播接收者:
+	监听系统发送出来的广播,根据接收不同的广播,去执行相应的逻辑操作;
+2.广播的其他作用:
+	广播接收者也可以用来传值-----传值的数据要求:数据量不能太大,发送传值的频率不能太频繁;
+	*****
+		进程间的通信(IPC通信)
+3.广播的形式:
+	根据发送的方式:
+		(1):无序广播(普通的广播)
+			(1)如何创建一个广播接收者?
+				1:创建一个类
+				2:继承BroadCastReceiver
+				3:重写onReceive()方法
+				4:注册:
+					根据注册的方式:
+						(1):静态(AndroidManifest.xml中注册):
+							<receiver android:name="com.example.receiver.MyReceiver01">
+								<intent-filter >
+									<action android:name="com.bawei.receiver01"/>
+								</intent-filter>
+							</receiver>
+						(2):动态(通过Java代码进行注册):
+							myReceiver01 = new MyReceiver01();
+							IntentFilter filter = new IntentFilter();
+							filter.addAction("com.bawei.receiver02");
+							registerReceiver(myReceiver01, filter);
+							注意:
+								在使用动态注册的方式时,应用程序退出的时候,必须
+								要手动去注销这个广播接收者;
+				动态和静态的区别:
+					静态:一经注册,会常驻在系统中,除非卸载应用程序或者后台关闭程序;
+					动态:使用比较灵活,什么时候用,什么时候注册;只要不用了,就需要注销掉
+						动态注册的广播接收者随着应用的生命周期进行;
+				优先级:
+					 当广播为普通广播时，有如下的接收顺序： 
+					* 1、动态注册的优先级高于静态注册的优先级
+					* 2、如果都是静态或者都是动态,先注册的优先级高于后注册的优先级			
+
+		(2):有序广播:注册方式没有区别
+			进程间的通信
+			如何发送有序广播:
+				/*
+				 * intent:广播的意图对象
+				 * receiverPermission:广播的权限(一般情况,很少用到权限)
+				 * resultReceiver:结果的接收者
+				 * scheduler:结果接收者的回执函数
+				 * initialCode:广播的结果码 
+				 * initialData:发送的广播内容 
+				 * initialExtras:广播需要传的值
+				 */
+				Intent intent = new Intent("com.bawei.send");
+				sendOrderedBroadcast(intent, null, null, null, Activity.RESULT_OK, "发放福利,每人1000块", null);
+			注册广播接收者时候的优先级问题:
+				如何设置优先级
+					在<intent-filter>标签里面,找到priority的属性,这个属性就是优先级,取值范围 :-1000~1000;
+					<intent-filter android:priority="-100">
+						<action android:name="com.bawei.send" />
+					</intent-filter>
+			广播接收者的方法:
+				getResultData();-----接收广播内容
+				setResultData("发放福利,没人500块");-----设置(更改)广播内容
+				abortBroadcast();------终止广播继续向下发送
+广播的案例:
+	1:传值
+		Activity----->BroadCastReceiver
+		BroadCastReceiver---->Activity
+		注意:
+			在广播向Activity传值中,在使用startActivity()这个方法时,要通过context.才能出来;
+			在广播向Activity传值中,在使用startActivity()这个方法时,必须设置一个常量:★★★★★
+				intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	2:开机自启----通过监听手机开机的动作,接收到开机的广播以后,直接跳转到应用的主界面
+		(1)创建一个广播接收者
+		(2)找到   android.intent.action.BOOT_COMPLETED 这个开机自启的动作
+		(3)注册接收者
+		(4)添加开机自启的权限
+			<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+		(5)跳转到当前应用的主页面
+			Intent intent2 = new Intent(context, MainActivity.class);
+			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(intent2);
+		

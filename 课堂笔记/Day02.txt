@@ -1,0 +1,105 @@
+第二单元：Android的布局及控件
+
+什么是布局（可以理解成一种思路）    先有布局后放控件。
+
+1.布局----Android中常用布局
+		（1）：RelativeLayout：相对布局----最灵活布局
+		（2）：LinnearLayout：线性布局----不会发生控件覆盖的情况
+
+			   （删除的情况下可以删掉后5行）
+ 
+			android:orientation=""----设置线性布局中控件的排列方向（重力方向）
+
+			horizontal:水平排列----默认排列
+
+			vertical：垂直方向
+常用控件：
+***************************************************************************************
+			TextView----显示文本的控件----可视必须给宽高
+
+			match_parent：充满父控件（父控件有多少，当前就有多少）
+
+			wrap_content：适应自身大小（自适应大小，控件里面内容有多大，控件就有多大）
+
+			text：设置文本内容
+
+			textColor：设置文本颜色（这个颜色不能用英文，用16进制）
+
+			textSize：设置文本大小（文字大小单位sp）
+
+			singleLine：设置超出屏幕的文本内容用省略号代替。
+***************************************************************************************
+			EditText：编辑文本（可视要有宽高）
+			
+			hint：提示输入信息
+	
+			password：设置输入内容为“非明文”
+
+			inputType：规定输入框输入类型
+***************************************************************************************
+			ImageView：展示图片（src属性链接图片  @drawable）
+***************************************************************************************
+			button：按钮
+			
+			dp（记录宽高单位）
+			background：切换背景    可以使用图片也可以直接使用颜色
+***************************************************************************************
+			ImageButton：图片按钮
+			src：设置图片资源
+***************************************************************************************
+			checkbox：复选框
+			checked=“TRUE”默认选中状态
+***************************************************************************************
+			RadioButton：单选按钮
+		            （一般两个一起出现）
+
+			RadioGroup:RadioButton容器（可以添加orientation属性设置排列方向  默认是垂直）
+
+			设置默认选中状态：checked=“TRUE”
+
+			实现单选效果要添加id属性（两个不同id）
+****************************************************************************************
+			LinnearLayout中的      gravity	   使内容居中
+		            （可以在当前控件及父控件中写）
+
+			layout_gravity：给单个控件设置位置；
+			gravity：设置父控件的内部控件位置。
+
+	                           （gravity：“center”当前控件内容居中）
+****************************************************************************************
+			布局的嵌套（占位）  
+			
+			Android：layout_weight=“9”	权重（分割成几份）
+			如果垂直方向设置控件高度为0dp
+			如果是水平方向设置宽度为0dp
+****************************************************************************************
+			相对布局（要有个相对位置）
+			控件会重叠（）
+
+	android:layout_alignParentRight:紧靠在父窗体的最右边
+	android:layout_alignParentBottom:紧靠在父窗体的最下面
+	android:layout_centerInParent:相对于父窗体的居中位置
+	android:layout_above:相对于某控件的上方
+	android:layout_centerHorizontal:水平居中
+	android:layout_marginBottom:外边距距离底部有多少个单位
+	android:layout_below:相对于某控件的下方
+	android:layout_marginTop:外边距距离顶部有多少个单位
+	android:layout_toLeftOf:相对于某控件的左边
+	android:layout_centerVertical:垂直居中
+	android:layout_marginRight:外边距距离右边有多少个单位
+	android:layout_marginLeft:外边距距离左边有多少个单位
+	android:layout_toRightOf:相对于某控件的右边
+		
+	ScrollView:滚动视图---一般会跟LinearLayout嵌套(ListView)
+	注意:ScrollView can host only one direct child-----ScrollView只能有一个子控件
+	android:scrollbars:设置滚动条  设置为none时即为隐藏滚动条
+		
+		（respurce  type：资源类型）
+		（3）：FramLayout：帧布局----轻量型布局
+
+		（4）：TableLayout：表格布局
+
+		（5）：GradLayout：网格布局
+
+		（6）：AbsolutLayout：绝对布局
+

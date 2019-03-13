@@ -1,0 +1,45 @@
+第十一单元:Activity生命周期和启动模式
+1.生命周期
+	定义:Activity从创建(出生)到销毁(死亡)的过程;
+	onCreate():Activity创建的时候调用的生命周期方法(创建)
+	onStart():Activity运行起来了,有界面,不能进行交互(有界面)
+	onResume():Activity获取到焦点,界面显示出来,并且可以进行交互(可以操作)
+	onPause():Activity失去焦点,不可以进行交互(不可以操作)
+	onStop():Activity停止运行(没界面)
+	onDestroy():Activity销毁时候调用的声明周期(销毁)
+
+	onRestart():从后台再次进入到应用程序的时候调用,重启应用程序
+第一种情况:一个页面(从开启到关闭)
+	(1)点击HOME键
+		onCreate--->onStart--->onResume
+		点击HOME键
+		onPause--->onStop
+		再次进入
+		onRestart--->onStart--->onResume
+	(2):点击返回键(退出程序)
+		onCreate--->onStart--->onResume
+		点击返回键
+		onPause--->onStop--->onDestroy
+第二种情况:两个页面进行跳转
+	(1):第二个页面完全覆盖第一个页面
+		onCreate(1)--->onStart(1)--->onResume(1)--->onPause(1)---onCreate(2)--->onStart(2)--->onResume(2)--->onStop(1)
+		点击返回键
+		onPause(2)--->onRestart(1)--->onStart(1)---onResume(1)--->onStop(2)--->onDestroy(2)
+			
+
+	(2):第二个页面不完全覆盖第一个页面
+		onCreate(1)--->onStart(1)--->onResume(1)--->onPause(1)---onCreate(2)--->onStart(2)--->onResume(2)
+		点击返回键
+		onPause(2)--->---onResume(1)--->onStop(2)--->onDestroy(2)
+第三种情况:横竖屏切换(默认是Activity从销毁到再创建过程)
+	解决横竖屏切换的问题:
+		在AndroidManifest.xml中,找到要配置的Activity标签,在标签内部写如下代码:
+		android:configChanges="keyboard|orientation|screenSize"
+2.启动模式:
+	standard:默认的启动模式
+	singleTop:单一顶部模式
+	singleTask:单一栈模式
+	singleIntance:单一实例模式
+
+	在在AndroidManifest.xml中,找到对应的Activity,通过launchMode的属性进行设置
+		

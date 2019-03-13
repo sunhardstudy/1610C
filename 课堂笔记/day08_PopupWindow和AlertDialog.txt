@@ -1,0 +1,51 @@
+第八单元:PopupWindow和AlertDialog(弹框)
+1.PopupWindow:Android中的弹出窗口
+	如何创建一个窗口?
+		(1):contentView = View.inflate();
+		(2):宽度和高度都是通过 LayoutParams.MATCH_PARENT
+		new PopupWindow(contentView,width, height);
+	如何显示一个窗口?
+		window.showAsDropDown(btn_show);//在指定控件的正左下方显示
+		window.showAsDropDown(btn_show, 40, 30);//指定控件的正左下方显示,带有偏移量
+		window.showAtLocation(parent, Gravity.BOTTOM, 0, 0);//显示在相对于父窗体的位置
+
+	创建窗口的必要属性?
+		/*
+		 * contentView:pop窗口的视图对象 
+		 * width:窗口显示出来的宽度 
+		 * height:窗口显示出来的高度
+		 */
+	解决的问题:
+		(1):内部的控件不可操作
+			window.setFocusable(true);//设置焦点事件
+			window.setTouchable(true);//设置窗口可以触摸
+		(2):点击窗口外部,窗口不消失
+			window.setOutsideTouchable(true);//设置窗口外部可以触摸
+			window.setBackgroundDrawable(new BitmapDrawable());//设置透明的背景图片
+	如何关闭对话框:
+		PopupWindow.dismiss();
+
+2.AlertDialog:Anddroid的对话框
+	1.Android自带有几种对话框?
+		(1):文本对话框
+		(2):列表对话框
+		(3):单选对话框
+		(4):多选对话框
+		(5):自定义对话框
+	
+	2.常用的对话框
+		文本对话框 ★
+
+	3.如何实现一个对话框
+		//1.通过AlertDialog的构造器来创建对话框
+		Builder b = new AlertDialog.Builder();
+		//2.设置对话框的内容
+		...
+		...
+		...
+		//3.必须调用  .show();才可以展示
+Pop 和 Dialog的区别
+	Pop不完全覆盖屏幕
+	Dialog是完全覆盖屏幕
+	Pop阻塞式窗口:一旦窗口运行出来,后台的其他程序处于等待状态
+	Dialog非阻塞式窗口:一旦窗口运行出来,后台的其他程序仍然处于运行状态

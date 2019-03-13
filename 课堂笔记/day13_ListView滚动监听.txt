@@ -1,0 +1,46 @@
+第十三单元:ListView的滚动监听(分页加载)
+1.回顾ListView的内容
+	如何展示数据?
+	通过适配器来展示数据:
+		(1);ArrayAdapter
+		(2):SImpleAdapter
+		(3):BaseAdapter  ******
+	监听:
+		条目的点击监听:
+			onItemClickListener();
+		条目的长按监听:
+			onItemLongClickListener();
+2.ListView的滚动监听:
+	重写的方法:
+		onScrollStateChanged();//滚动状态改变时候回调的方法
+			SCROLL_STATE_FLING:惯性滚动
+			SCROLL_STATE_IDLE:静止状态
+			SCROLL_STATE_TOUCH_SCROLL:触摸滚动
+			
+		onScroll();//滚动中回调的方法
+			int firstVisibleItem:第一个显示的条目
+			int visibleItemCount:显示的条目数量(一个屏幕)
+			int totalItemCount:条目的总数量
+3.分页加载:
+	手动分页加载(简单):
+		注意:
+			给ListView添加底部布局
+			通过底部布局的视图对象,去找到里面的控件
+			给控件添加点击监听
+
+		
+	自动分页加载(考):
+		注意:
+			在ListView的滚动监听中,onScrollStateChanged()方法中去判断
+				// 判断----滑动到最底部并且处于静止状态
+				if (scrollState == SCROLL_STATE_IDLE) {
+					if (list_view.getLastVisiblePosition() == list.size()) {
+						// 加载更多
+						initData();
+					}
+				}
+			ListView添加底部布局:----这个底部布局,是以一个独立的ListView条目添加上的
+				View v = View.inflate(MainActivity.this, R.layout.foot_layout, null);
+				list_view.addFooterView(v);
+		
+		

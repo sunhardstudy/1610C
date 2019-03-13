@@ -1,0 +1,70 @@
+第一单元：android入门
+1.了解 android
+	1.为什么选择android----优势？
+		（1）：开源代码----免费
+		（2）: 开发语言----java
+		（3）：底层----Linux内核
+	2.发展历程
+		（1）：2003----android公司成立，加州
+		（2）：2005----被谷歌公司收购
+		（3）：2007----android 1.0（sdk版本）预览版发布
+		（4）：2008----android 1.0 测试版发布
+
+			正式发布为1.5版本
+	3.发行版本号
+			1.5  cupcake(纸杯蛋糕)
+			1.6  donut(甜甜圈)
+			2.1  eclair(闪电泡芙)
+			...........
+			4.1  Jelly   bean(果冻豆)     API   16 --->编译版本4.1.2
+
+			目前手机最高使用      Android    9.0版本
+
+左边sdk   版本   右边   API版本  （ 一一对应）
+
+2.掌握android的四层架构----这四层架构的顺序是不能变的
+		1：应用程序层----主要存放：手机中所有应用程序（包括自带和下载）
+		2：应用程序框架层----主要存放：开发过程中开发人员用到的框架（xxxxManager）
+		3：核心库（函数库）----主要存放：开发过程中所用到的所有类库
+		4：最底层（Linux内核层）----就是一个android的内核
+		
+			
+
+3.掌握android 项目的创建和目录结构
+		首先new一个    abdroid  application   project
+		Application  name   :应用程序名
+		Project  name   ：项目名
+		Package   name  ：包名
+
+		MiNi  required  Sdk  ：最小支持的版本
+		Target  sdk : 目标版本	
+		compile  with   ： 编译版本
+		The  me  ： 应用主题
+
+
+1：src		存放工程内的java代码
+2：gen		R.java   用于存放工程的R文件（R文件不要轻易动）存放项目中所有可用的资源id	
+3：assets		资源目录，通常用来存放多媒体文件（音频，视频）想要取出其中数据只能通过IO流
+4：bin		用来存放当前目录的.apk文件
+5：libs		存放所有应用到的第三方类库
+6：res		----资源目录
+		（1）drawable ：存放开发中所有使用到的图 片    其中后缀代表分辨率
+		（2）layout ： 开发中所有使用的布局
+		（3）menu：对应手机中菜单键的使用
+		（4）values：其中包含三个文件   
+			1：strings.xml：用来存放工程中所有的字符串
+			2：styles.xml ：存放工程中用到的样式
+
+7：AndroidManifest.xml      清单文件（配置文件）:存放的是工程所有的配置文件，当前应用如果有需要注册的组件需要在这里面注册，开发用到相关权限
+		（1）versioncode    版本
+		（2）minsdkversion  最小版本
+		（3）targetversion  目标版本
+
+4.安装开发软件
+5.知识点
+	JDK:	java软件开发工具包
+	JRE:	java运行环境
+	JVM:	java虚拟机
+	SDK:	Android软件开发工具包
+	ADT:	Android开发软件的插件
+	ADB:	AndroidBug调试桥
